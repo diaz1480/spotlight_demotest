@@ -16,7 +16,31 @@ paths:
     post:
       summary: Login
       tags: []
-      responses: {}
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  uid:
+                    type: string
+                    minLength: 1
+                  name:
+                    type: string
+                    minLength: 1
+                  token:
+                    type: string
+                    minLength: 1
+                required:
+                  - ok
+                  - uid
+                  - name
+                  - token
       operationId: post-api-auth
       description: Method to autenticate with API
       requestBody:
@@ -40,7 +64,60 @@ paths:
     get:
       summary: GetAllEvents
       tags: []
-      responses: {}
+      responses:
+        '200':
+          description: OK
+          headers: {}
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  events:
+                    type: array
+                    uniqueItems: true
+                    minItems: 1
+                    items:
+                      required:
+                        - title
+                        - notes
+                        - start
+                        - end
+                        - id
+                      properties:
+                        title:
+                          type: string
+                          minLength: 1
+                        notes:
+                          type: string
+                          minLength: 1
+                        start:
+                          type: string
+                          minLength: 1
+                        end:
+                          type: string
+                          minLength: 1
+                        user:
+                          type: object
+                          properties:
+                            _id:
+                              type: string
+                              minLength: 1
+                            name:
+                              type: string
+                              minLength: 1
+                          required:
+                            - _id
+                            - name
+                        id:
+                          type: string
+                          minLength: 1
+                required:
+                  - ok
+                  - events
       operationId: get-api-events
       description: ''
       security:
