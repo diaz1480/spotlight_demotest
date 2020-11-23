@@ -10,7 +10,7 @@ info:
   license:
     name: None
 servers:
-  - url: 'http://localhost:4000'
+  - url: 'https://back-calendar-curso.herokuapp.com'
 paths:
   /api/auth:
     post:
