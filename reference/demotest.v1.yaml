@@ -1,0 +1,54 @@
+openapi: 3.0.0
+info:
+  title: demotest
+  version: '1.0'
+  contact:
+    name: Camilo Diaz
+    url: 'https://github.com/diaz1480'
+    email: diaz1480@gmail.com
+  termsOfService: 'https://github.com/diaz1480/TermsService'
+  license:
+    name: None
+servers:
+  - url: 'http://localhost:4000'
+paths:
+  /api/auth:
+    post:
+      summary: Login
+      tags: []
+      responses: {}
+      operationId: post-api-auth
+      description: Method to autenticate with API
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: ''
+              type: object
+              properties:
+                email:
+                  type: string
+                  minLength: 1
+                password:
+                  type: string
+                  minLength: 1
+              required:
+                - email
+                - password
+      parameters: []
+  /api/events:
+    get:
+      summary: GetAllEvents
+      tags: []
+      responses: {}
+      operationId: get-api-events
+      description: ''
+      security:
+        - BearerAuth: []
+    parameters: []
+components:
+  schemas: {}
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
