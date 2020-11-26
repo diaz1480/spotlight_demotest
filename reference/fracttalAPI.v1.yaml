@@ -1,6 +1,10 @@
 openapi: 3.0.0
 info:
   title: FracttalAPI
+  x-logo:
+    url: "https://ayuda.fracttal.com/wp-content/uploads/2019/05/fracttal_logo_principal.png"
+    backgroundColor: "#FFFFFF"
+    altText: "Fracttal"
   version: '1.0'
   contact:
     email: soporte@fracttal.com
