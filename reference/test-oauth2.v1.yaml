@@ -1,23 +1,127 @@
 openapi: 3.0.0
 info:
-  title: test-oauth2
+  title: demotest
   version: '1.0'
   contact:
     name: Camilo Diaz
+    url: 'https://github.com/diaz1480'
+    email: diaz1480@gmail.com
+  termsOfService: 'https://github.com/diaz1480/TermsService'
+  license:
+    name: None
 servers:
-  - url: 'https://back-calendar-curso.herokuapp.com/api/'
+  - url: 'https://back-calendar-curso.herokuapp.com'
 paths:
-  /events:
-    get:
-      summary: Your GET endpoint
+  /api/auth:
+    post:
+      summary: Login
       tags: []
       responses:
         '200':
           description: OK
-      operationId: get-events
-      security: []
-      description: Obtener eventos
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  uid:
+                    type: string
+                    minLength: 1
+                  name:
+                    type: string
+                    minLength: 1
+                  token:
+                    type: string
+                    minLength: 1
+                required:
+                  - ok
+                  - uid
+                  - name
+                  - token
+      operationId: post-api-auth
+      description: Method to autenticate with API
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: ''
+              type: object
+              properties:
+                email:
+                  type: string
+                  minLength: 1
+                password:
+                  type: string
+                  minLength: 1
+              required:
+                - email
+                - password
       parameters: []
+  /api/events:
+    get:
+      summary: GetAllEvents
+      tags: []
+      responses:
+        '200':
+          description: OK
+          headers: {}
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  events:
+                    type: array
+                    uniqueItems: true
+                    minItems: 1
+                    items:
+                      required:
+                        - title
+                        - notes
+                        - start
+                        - end
+                        - id
+                      properties:
+                        title:
+                          type: string
+                          minLength: 1
+                        notes:
+                          type: string
+                          minLength: 1
+                        start:
+                          type: string
+                          minLength: 1
+                        end:
+                          type: string
+                          minLength: 1
+                        user:
+                          type: object
+                          properties:
+                            _id:
+                              type: string
+                              minLength: 1
+                            name:
+                              type: string
+                              minLength: 1
+                          required:
+                            - _id
+                            - name
+                        id:
+                          type: string
+                          minLength: 1
+                required:
+                  - ok
+                  - events
+      operationId: get-api-events
+      description: ''
+      security: []
+    parameters: []
 components:
   schemas: {}
   securitySchemes: {}
