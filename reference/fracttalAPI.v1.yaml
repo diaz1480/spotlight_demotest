@@ -7,7 +7,7 @@ info:
     name: 'Fracttal '
     url: 'https://ayuda.fracttal.com/'
   termsOfService: 'https://www.fracttal.com/es/terminos-y-condiciones'
-  description: API de integraciones de Fracttal
+  description: API de integraciones de Fracttal  
 servers:
   - url: 'https://app.fracttal.com/api'
     description: API
@@ -15,7 +15,7 @@ paths:
   /transactions_log:
     get:
       summary: Consultar log de transacciones
-      tags: []
+      tags: [API Compañía]
       responses:
         '200':
           description: OK
@@ -115,7 +115,7 @@ paths:
   /costs_center:
     get:
       summary: Consultar Centros De Costo
-      tags: []
+      tags: [API Compañía]
       responses:
         '200':
           description: OK
@@ -165,7 +165,7 @@ paths:
     post:
       summary: Crear Centros De Costo
       operationId: post-costs_center
-      tags: []
+      tags: [API Compañía]
       responses:
         '200':
           description: OK
@@ -229,6 +229,7 @@ paths:
         description: Es el código del activo al cual se le realizará la asignación del plan de tareas
     put:
       summary: Asociar activo a un plan de tareas
+      tags: [API Activos]
       operationId: put-items_associate_tasks_plan-item_code
       responses:
         '200':
@@ -328,7 +329,7 @@ paths:
         required: true
     get:
       summary: Consultar campos personalizados de los activos
-      tags: []
+      tags: [API Activos]
       responses:
         '200':
           description: OK
@@ -433,3 +434,13 @@ paths:
 components:
   schemas: {}
   securitySchemes: {}
+tags:
+  - name: API Compañía
+    description: Sección de compañía
+    externalDocs:
+      url: http://api.fracttal.com
+  - name: API Activos
+    description: Sección de activos
+    externalDocs:
+      url: http://api.fracttal.com
+
