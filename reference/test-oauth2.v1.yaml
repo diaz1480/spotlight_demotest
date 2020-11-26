@@ -124,4 +124,12 @@ paths:
     parameters: []
 components:
   schemas: {}
-  securitySchemes: {}
+  securitySchemes:
+    secOA:
+      type: oauth2
+      flows:
+        clientCredentials:
+          refreshUrl: ''
+          scopes:
+            read: read data
+          tokenUrl: 'https://back-calendar-curso.herokuapp.com/api/auth/loginOAuth'
