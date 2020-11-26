@@ -1,0 +1,33 @@
+openapi: 3.0.0
+info:
+  title: test-oauth2
+  version: '1.0'
+  contact:
+    name: Camilo Diaz
+servers:
+  - url: 'https://back-calendar-curso.herokuapp.com/api/'
+paths:
+  /events:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses: {}
+      operationId: get-events
+      security:
+        - AuthApp:
+            - read
+            - write
+      description: Obtener eventos
+      parameters: []
+components:
+  schemas: {}
+  securitySchemes:
+    AuthApp:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: 'https://back-calendar-curso.herokuapp.com/api/auth/loginoauth'
+          refreshUrl: ''
+          scopes:
+            read: getData
+            write: insertData
