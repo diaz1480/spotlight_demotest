@@ -120,7 +120,9 @@ paths:
                   - events
       operationId: get-api-events
       description: ''
-      security: []
+      security:
+        - secOA:
+            - read
     parameters: []
 components:
   schemas: {}

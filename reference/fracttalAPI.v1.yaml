@@ -1,0 +1,435 @@
+openapi: 3.0.0
+info:
+  title: FracttalAPI
+  version: '1.0'
+  contact:
+    email: soporte@fracttal.com
+    name: 'Fracttal '
+    url: 'https://ayuda.fracttal.com/'
+  termsOfService: 'https://www.fracttal.com/es/terminos-y-condiciones'
+  description: API de integraciones de Fracttal
+servers:
+  - url: 'https://app.fracttal.com/api'
+    description: API
+paths:
+  /transactions_log:
+    get:
+      summary: Consultar log de transacciones
+      tags: []
+      responses:
+        '200':
+          description: OK
+          headers: {}
+          content:
+            application/json:
+              schema:
+                description: Respuesta
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: Éxito de la operación
+                  message:
+                    type: string
+                    minLength: 1
+                    description: Código de respuesta
+                  data:
+                    type: array
+                    uniqueItems: true
+                    minItems: 1
+                    description: |
+                      Array con detalle de respuesta
+                    items:
+                      type: object
+                      description: Ítem de respuesta
+                      properties:
+                        id:
+                          type: number
+                          description: Id Registro - NSDI
+                        id_company:
+                          type: number
+                          description: Id Compañía - NSDI
+                        id_account:
+                          type: number
+                          description: Id Cuenta - NSDI
+                        event_date:
+                          type: string
+                          minLength: 1
+                          description: Fecha del evento (Fecha en UTC-0)
+                        ip_address:
+                          type: string
+                          minLength: 1
+                          description: IP desde donde se realizó la acción
+                        name:
+                          type: string
+                          minLength: 1
+                          description: Nombre del usuario que realizó la acción
+                        email:
+                          type: string
+                          minLength: 1
+                          description: email del usuario que realizó la acción
+                        sub_module_description:
+                          type: string
+                          minLength: 1
+                          description: Sub módulo donde se realizó la acción
+                        module_description:
+                          type: string
+                          minLength: 1
+                          description: Módulo donde se realizó la acción
+                        action:
+                          type: string
+                          minLength: 1
+                          description: Acción
+                        description:
+                          type: string
+                          minLength: 1
+                          description: Descripción de la acción
+                      required:
+                        - id
+                        - id_company
+                        - id_account
+                        - event_date
+                        - ip_address
+                        - name
+                        - email
+                        - sub_module_description
+                        - module_description
+                        - action
+                        - description
+                  total:
+                    type: number
+                    description: Número de elementos del detalle de respuesta
+                required:
+                  - success
+                  - message
+                  - data
+                  - total
+        '400':
+          description: El request está mal formado. La información para crear el recurso no existe o es inválida
+        '401':
+          description: Error en la autenticación. La autenticación falló o no se encontró la información necesaria para autenticar el request.
+        '403':
+          description: El usuario no tiene permisos para realizar la acción.
+      operationId: get-transactions_log
+      description: Mediante este servicio web se puede consultar el log de transacciones de la compañía.
+  /costs_center:
+    get:
+      summary: Consultar Centros De Costo
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: Éxito de la operación
+                  message:
+                    type: string
+                    minLength: 1
+                    description: Código de respuesta
+                  data:
+                    type: array
+                    uniqueItems: true
+                    minItems: 1
+                    description: Array con detalle de respuesta
+                    items:
+                      type: object
+                      description: Ítem de respuesta
+                      properties:
+                        value:
+                          type: string
+                          minLength: 1
+                          description: Valor del centro de costos
+                        description:
+                          type: string
+                          minLength: 1
+                          description: "\tDescripción del centro de costos"
+                      required:
+                        - value
+                        - description
+                  total:
+                    type: number
+                    description: Número de elementos del detalle de respuesta
+                required:
+                  - success
+                  - message
+                  - data
+                  - total
+      operationId: get-costs_center
+      description: Mediante esta API puedes consultar todos los centros de costos que tienes creados en tu compañía.
+    post:
+      summary: Crear Centros De Costo
+      operationId: post-costs_center
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: Éxito de la operación
+                  message:
+                    type: string
+                    minLength: 1
+                    description: Código de respuesta
+                  data:
+                    type: object
+                    required:
+                      - value
+                      - description
+                    description: 'Detalle de respuesta '
+                    properties:
+                      value:
+                        type: string
+                        minLength: 1
+                        description: Valor del centro de costos
+                      description:
+                        type: string
+                        minLength: 1
+                        description: "\tDescripción del centro de costos"
+                  total:
+                    type: number
+                    description: N/A
+                required:
+                  - success
+                  - message
+                  - data
+                  - total
+      description: Mediante esta API puedes crear un centros de costos dentro de tu compañía.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                value:
+                  type: string
+                  description: Valor del centro de costos
+                description:
+                  type: string
+                  description: Descripción del centro de costos
+        description: Los siguientes son los parámetros que se deben de enviar en el body del servicio web
+  '/items_associate_tasks_plan/{item_code}':
+    parameters:
+      - schema:
+          type: string
+        name: item_code
+        in: path
+        required: true
+        description: Es el código del activo al cual se le realizará la asignación del plan de tareas
+    put:
+      summary: Asociar activo a un plan de tareas
+      operationId: put-items_associate_tasks_plan-item_code
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: Éxito de la operación
+                  message:
+                    type: string
+                    minLength: 1
+                    description: Código de respuesta
+                  data:
+                    type: object
+                    required:
+                      - id
+                      - code
+                      - description
+                      - id_type_item
+                      - id_group_task
+                      - groups_tasks_description
+                    description: Ítem de respuesta
+                    properties:
+                      id:
+                        type: number
+                        description: Id Elemento - NSDI
+                      code:
+                        type: string
+                        minLength: 1
+                        description: Código del activo
+                      description:
+                        type: string
+                        minLength: 1
+                        description: Descripción del activo
+                      id_type_item:
+                        type: number
+                        description: |-
+                          Tipo de activo.
+                          1: Ubicaciones
+                          2: Equipos
+                          3: Herramientas
+                      id_group_task:
+                        type: number
+                        description: Id del plan de tareas al que fue asociado
+                      groups_tasks_description:
+                        type: string
+                        minLength: 1
+                        description: Descripción del plan de tareas al que fue asociado
+                  total:
+                    type: number
+                    description: Número de elementos del detalle de respuesta
+                required:
+                  - success
+                  - message
+                  - data
+                  - total
+      description: |-
+        Mediante este servicio web se puede asociar a un activo un plan de tareas.
+
+        Para poder hacer uso de este servicio web, el activo no puede estar asociado a ningún plan de tareas, debe ser una ubicación, equipo o herramienta y las tareas dentro del plan de tareas, no pueden tener activadores ni subtareas relacionadas con lecturas de medidor.
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: ''
+              type: object
+              properties:
+                id_tasks_plan:
+                  type: string
+                  minLength: 1
+                  description: Id del plan de tareas (lo puedes consultar con el servicio web consulta de plan de tareas )
+                code_user:
+                  type: string
+                  minLength: 1
+                  description: Código del usuario responsable de la transacción (usuario creado como recurso humano en de Fracttal y con una cuenta asociada)
+                last_date_maintenance:
+                  type: string
+                  minLength: 1
+                  description: 'Fecha del último mantenimiento. Por defecto, es la fecha actual. Formato: YYYY-MM-DD'
+              required:
+                - id_tasks_plan
+                - code_user
+                - last_date_maintenance
+        description: 'Los siguientes son los parámetros que se deben de enviar en el body del servicio web, para la asignación del plan de tareas.'
+  '/items_custom_fields/{code}':
+    parameters:
+      - schema:
+          type: string
+        name: code
+        in: path
+        required: true
+    get:
+      summary: Consultar campos personalizados de los activos
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: Éxito de la operación
+                  message:
+                    type: string
+                    minLength: 1
+                    description: Código de respuesta
+                  data:
+                    type: array
+                    uniqueItems: true
+                    minItems: 1
+                    description: Array con detalle de respuesta
+                    items:
+                      type: object
+                      description: Detalle de respuesta
+                      properties:
+                        id:
+                          type: number
+                        id_company:
+                          type: number
+                        id_item:
+                          type: number
+                          description: Id del activo
+                        code:
+                          type: string
+                          minLength: 1
+                          description: Código del activo
+                        description:
+                          type: string
+                          minLength: 1
+                          description: Descripción del activo
+                        label_name:
+                          type: string
+                          minLength: 1
+                          description: Descripción del campo personalizado
+                        value:
+                          type: string
+                          description: Valor del campo personalizado
+                        id_custom_field_group:
+                          type: number
+                          description: Id del grupo personalizado
+                        id_custom_field_type:
+                          type: number
+                          description: Id del tipo de campo personalizado
+                      required:
+                        - id
+                        - id_company
+                        - id_item
+                        - code
+                        - description
+                        - label_name
+                        - value
+                        - id_custom_field_group
+                        - id_custom_field_type
+                  total:
+                    type: number
+                    description: Número de elementos del detalle de respuesta
+                required:
+                  - success
+                  - message
+                  - data
+                  - total
+      operationId: get-items_custom_fields-code
+      description: |-
+        Mediante esta API se puede consultar los campos personalizados  de los activos.
+
+        Se puede consultar el listado de todos los campos personalizados de los activos o de un activo en particular
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                code:
+                  type: string
+                  description: Código del activo.
+                item_type:
+                  type: number
+                  description: |-
+                    Tipo de activo que se está buscando. Este campo es obligatorio, si se desea consultar los campos personalizados de un activo en particular. Valor según el tipo de activo:
+                    1: Ubicaciones
+                    2: Equipos
+                    3: Herramientas
+                    4: Repuestos y Suministros
+                    5: Digital
+                start:
+                  type: number
+                  description: Número de registro desde el cual comenzará la consulta.Por defecto inicia en el item 0.
+                limit:
+                  type: number
+                  description: Número de registro final que retornará la consulta. Por defecto se retornan 100 registros (Valor máximo)
+        description: Los siguientes son los parámetros que se deben de enviar en el body del servicio web
+components:
+  schemas: {}
+  securitySchemes: {}
