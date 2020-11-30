@@ -16,6 +16,217 @@ servers:
   - url: 'https://app.fracttal.com/api'
     description: API
 paths:
+  ##### ACTIVOS - INICIO
+  ## Consultar Activo 
+  '/items_details/{code}':
+    parameters:
+      - schema:
+          type: string
+        name: code
+        in: path
+        description: Código del activo.
+        required: true
+    get:
+      summary: Consultar un Activo
+      tags:
+        - API Activos
+      responses:
+        '200':
+          description: OK
+          headers: {}
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: Éxito de la operación
+                  message:
+                    type: string
+                    minLength: 1
+                    description: Código de respuesta
+                  data:
+                    type: array
+                    uniqueItems: true
+                    minItems: 1
+                    description: Array con detalle de respuesta
+                    items:
+                      type: object
+                      description: Ítem de respuesta
+                      properties:
+                        active:
+                          type: boolean
+                          description: 'True si el activo está activo, false en caso contrario.'
+                        code:
+                          type: string
+                          minLength: 1
+                          description: Código ítem
+                        description:
+                          type: string
+                          minLength: 1
+                          description: Descripción
+                        id_type_item:
+                          type: number
+                          description: 'Tipo de activo. Puede ser: 1 para Ubicaciones, 2 para Equipos, 3 para Herramientas, 4 para Repuestos y suministros, 5 para Digital'
+                        barcode:
+                          type: string
+                          minLength: 1
+                          description: Código de barras
+                        field_1:
+                          type: string
+                          minLength: 1
+                          description: Nombre
+                        field_2:
+                          type: string
+                          minLength: 1
+                          description: Fabricante
+                        field_3:
+                          type: string
+                          minLength: 1
+                          description: Modelo
+                        field_4:
+                          type: string
+                          minLength: 1
+                          description: Número de serial
+                        field_5:
+                          type: string
+                          minLength: 1
+                          description: Otro 1
+                        field_6:
+                          type: string
+                          description: Otro 2
+                        notes:
+                          description: Notas
+                          type: string
+                        min_stock_warning:
+                          type: boolean
+                          description: |
+                            Alerto de minimo de inventario
+                        weight:
+                          description: Peso
+                          type: string
+                        is_serial_control:
+                          type: boolean
+                          description: true cuando es un item controlado por serial
+                        lead_time:
+                          description: ''
+                          type: string
+                        items_types_description:
+                          type: string
+                          minLength: 1
+                          description: Nombre del tipo de activo
+                        groups_description:
+                          description: Tipo
+                          type: string
+                        groups_1_description:
+                          description: Clasificación 1
+                          type: string
+                        groups_2_description:
+                          type: string
+                          description: Clasificación 2
+                        custom_fields_groups_description:
+                          type: string
+                          minLength: 1
+                          description: Nombre del grupo de campos personalizados que tiene asociado el activo
+                        units_description:
+                          description: Descripción de la unidad
+                          type: string
+                        priorities_description:
+                          type: string
+                          description: Prioridad
+                        parent_description:
+                          type: string
+                          minLength: 1
+                          description: Ubicado o es parte de
+                        purchase_date:
+                          type: string
+                          minLength: 1
+                          description: Fecha de compra
+                        total_cost:
+                          type: number
+                          description: Costo total
+                        anual_depreciation:
+                          type: number
+                          description: Porcentaje depreciación anual
+                        startup_date:
+                          type: string
+                          minLength: 1
+                          description: Fecha de inicio para la depreciación
+                        total_replacement_cost:
+                          type: number
+                          description: Costo total de la depreciación lineal
+                        salvage_value:
+                          type: number
+                          description: Valor de sustitución (depreciación)
+                        costs_center_description:
+                          type: string
+                          minLength: 1
+                          description: Descripción Centro de costos
+                        budgets_description:
+                          type: string
+                          minLength: 1
+                          description: Costo total de la depreciación lineal
+                        cost_average:
+                          type: number
+                          description: Costo Promedio
+                        latitude:
+                          description: Latitud
+                          type: string
+                        longitud:
+                          type: string
+                          description: Longuitud
+                        groups_tasks_description:
+                          type: string
+                          minLength: 1
+                          description: Plan de tareas al que pertenece
+                        units_code:
+                          description: Código de la unidad
+                        visible_to_all:
+                          type: boolean
+                          description: True si el activo se puede visualizar a todas las personas de la empresa
+                        available:
+                          type: boolean
+                          description: 'True cuando el activo está disponible, false en caso contrario'
+                        initial_date_out_of_service:
+                          description: Fecha inicial del fuera de servicio (Aplica cuando el activo no está disponible)
+                  total:
+                    type: number
+                    description: Número de elementos del detalle de respuesta
+                required:
+                  - success
+                  - message
+                  - data
+      operationId: get-items_details-code
+      description: |-
+        Mediante esta API se puede consultar la información detallada de un activo.
+        Puedes consultar el listado de tus activos o realizar filtros por el código y/o tipo de activo.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                item_type:
+                  type: number
+                  description: |-
+                    Filtrar por tipos de activo. En la siguiente tabla se muestra el número que se debe enviar de acuerdo al tipo de activo que se desea obtener:
+                    1: Ubicaciones 
+                    2: Equipos
+                    3: Herramientas
+                    4: Repuestos y Suministros
+                    5: Digital
+                location_code:
+                  type: string
+                  description: Código del activo padre del cual se desea consultar sus hijos
+                start:
+                  type: number
+                  description: Número de registro desde el cual comenzará la consulta.Por defecto inicia en el item 0.
+                limit:
+                  type: string
+                  description: Número de registro final que retornará la consulta. Por defecto se retornan 100 registros (Valor máximo)
+  ##### ACTIVOS -FIN
   /transactions_log:
     get:
       summary: Consultar log de transacciones
@@ -640,223 +851,16 @@ paths:
               required:
                 - id_type_item
                 - code
-  '/items_details/{code}':
-    parameters:
-      - schema:
-          type: string
-        name: code
-        in: path
-        description: Código del activo.
-        required: true
-    get:
-      summary: Consultar un Activo
-      tags:
-        - API Activos
-      responses:
-        '200':
-          description: OK
-          headers: {}
-          content:
-            application/json:
-              schema:
-                description: ''
-                type: object
-                properties:
-                  success:
-                    type: boolean
-                    description: Éxito de la operación
-                  message:
-                    type: string
-                    minLength: 1
-                    description: Código de respuesta
-                  data:
-                    type: array
-                    uniqueItems: true
-                    minItems: 1
-                    description: Array con detalle de respuesta
-                    items:
-                      type: object
-                      description: Ítem de respuesta
-                      properties:
-                        active:
-                          type: boolean
-                          description: 'True si el activo está activo, false en caso contrario.'
-                        code:
-                          type: string
-                          minLength: 1
-                          description: Código ítem
-                        description:
-                          type: string
-                          minLength: 1
-                          description: Descripción
-                        id_type_item:
-                          type: number
-                          description: 'Tipo de activo. Puede ser: 1 para Ubicaciones, 2 para Equipos, 3 para Herramientas, 4 para Repuestos y suministros, 5 para Digital'
-                        barcode:
-                          type: string
-                          minLength: 1
-                          description: Código de barras
-                        field_1:
-                          type: string
-                          minLength: 1
-                          description: Nombre
-                        field_2:
-                          type: string
-                          minLength: 1
-                          description: Fabricante
-                        field_3:
-                          type: string
-                          minLength: 1
-                          description: Modelo
-                        field_4:
-                          type: string
-                          minLength: 1
-                          description: Número de serial
-                        field_5:
-                          type: string
-                          minLength: 1
-                          description: Otro 1
-                        field_6:
-                          type: string
-                          description: Otro 2
-                        notes:
-                          description: Notas
-                          type: string
-                        min_stock_warning:
-                          type: boolean
-                          description: |
-                            Alerto de minimo de inventario
-                        weight:
-                          description: Peso
-                          type: string
-                        is_serial_control:
-                          type: boolean
-                          description: true cuando es un item controlado por serial
-                        lead_time:
-                          description: ''
-                          type: string
-                        items_types_description:
-                          type: string
-                          minLength: 1
-                          description: Nombre del tipo de activo
-                        groups_description:
-                          description: Tipo
-                          type: string
-                        groups_1_description:
-                          description: Clasificación 1
-                          type: string
-                        groups_2_description:
-                          type: string
-                          description: Clasificación 2
-                        custom_fields_groups_description:
-                          type: string
-                          minLength: 1
-                          description: Nombre del grupo de campos personalizados que tiene asociado el activo
-                        units_description:
-                          description: Descripción de la unidad
-                          type: string
-                        priorities_description:
-                          type: string
-                          description: Prioridad
-                        parent_description:
-                          type: string
-                          minLength: 1
-                          description: Ubicado o es parte de
-                        purchase_date:
-                          type: string
-                          minLength: 1
-                          description: Fecha de compra
-                        total_cost:
-                          type: number
-                          description: Costo total
-                        anual_depreciation:
-                          type: number
-                          description: Porcentaje depreciación anual
-                        startup_date:
-                          type: string
-                          minLength: 1
-                          description: Fecha de inicio para la depreciación
-                        total_replacement_cost:
-                          type: number
-                          description: Costo total de la depreciación lineal
-                        salvage_value:
-                          type: number
-                          description: Valor de sustitución (depreciación)
-                        costs_center_description:
-                          type: string
-                          minLength: 1
-                          description: Descripción Centro de costos
-                        budgets_description:
-                          type: string
-                          minLength: 1
-                          description: Costo total de la depreciación lineal
-                        cost_average:
-                          type: number
-                          description: Costo Promedio
-                        latitude:
-                          description: Latitud
-                          type: string
-                        longitud:
-                          type: string
-                          description: Longuitud
-                        groups_tasks_description:
-                          type: string
-                          minLength: 1
-                          description: Plan de tareas al que pertenece
-                        units_code:
-                          description: Código de la unidad
-                        visible_to_all:
-                          type: boolean
-                          description: True si el activo se puede visualizar a todas las personas de la empresa
-                        available:
-                          type: boolean
-                          description: 'True cuando el activo está disponible, false en caso contrario'
-                        initial_date_out_of_service:
-                          description: Fecha inicial del fuera de servicio (Aplica cuando el activo no está disponible)
-                  total:
-                    type: number
-                    description: Número de elementos del detalle de respuesta
-                required:
-                  - success
-                  - message
-                  - data
-      operationId: get-items_details-code
-      description: |-
-        Mediante esta API se puede consultar la información detallada de un activo.
-        Puedes consultar el listado de tus activos o realizar filtros por el código y/o tipo de activo.
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                item_type:
-                  type: number
-                  description: |-
-                    Filtrar por tipos de activo. En la siguiente tabla se muestra el número que se debe enviar de acuerdo al tipo de activo que se desea obtener:
-                    1: Ubicaciones 
-                    2: Equipos
-                    3: Herramientas
-                    4: Repuestos y Suministros
-                    5: Digital
-                location_code:
-                  type: string
-                  description: Código del activo padre del cual se desea consultar sus hijos
-                start:
-                  type: number
-                  description: Número de registro desde el cual comenzará la consulta.Por defecto inicia en el item 0.
-                limit:
-                  type: string
-                  description: Número de registro final que retornará la consulta. Por defecto se retornan 100 registros (Valor máximo)
+  
 components:
   schemas: {}
   securitySchemes: {}
-tags:
-  - name: API Compañía
-    description: Sección de compañía
-    externalDocs:
-      url: 'http://api.fracttal.com'
+tags:  
   - name: API Activos
     description: Sección de activos
+    externalDocs:
+      url: 'http://api.fracttal.com'
+  - name: API Compañía
+    description: Sección de compañía
     externalDocs:
       url: 'http://api.fracttal.com'
