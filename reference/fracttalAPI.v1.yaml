@@ -226,6 +226,206 @@ paths:
                 limit:
                   type: string
                   description: Número de registro final que retornará la consulta. Por defecto se retornan 100 registros (Valor máximo)
+  ##Crear Activo
+  /items:
+    post:
+      summary: Crear un Activo
+      tags:
+        - API Activos
+      operationId: post-items
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: true si el insert fue exitoso o false en caso contrario
+                  message:
+                    type: string
+                    minLength: 1
+                    description: 200 si fue exitoso
+                  data:
+                    type: object
+                    description: Json con el item insertado
+                    properties:
+                      code:
+                        type: string
+                        minLength: 1
+                      description: {}
+                      id_type_item:
+                        type: number
+                      notes: {}
+                      min_stock_warning: {}
+                      weight: {}
+                      id_unit: {}
+                      is_serial_control:
+                        type: boolean
+                      is_tool:
+                        type: boolean
+                      active:
+                        type: boolean
+                      barcode:
+                        type: string
+                        minLength: 1
+                      field_1:
+                        type: string
+                        minLength: 1
+                      field_2:
+                        type: string
+                        minLength: 1
+                      lead_time:
+                        type: string
+                      path_image:
+                        type: string
+                      field_3:
+                        type: string
+                        minLength: 1
+                      field_4:
+                        type: string
+                        minLength: 1
+                      is_changed:
+                        type: boolean
+                      field_5:
+                        type: string
+                        minLength: 1
+                      field_6:
+                        type: string
+                        minLength: 1
+                      import_code: {}
+                      total_replacement_cost: {}
+                      salvage_value: {}
+                      purchase_date:
+                        type: string
+                        minLength: 1
+                      total_cost: {}
+                      anual_depreciation: {}
+                      startup_date: {}
+                      latitude: {}
+                      longitud: {}
+                      visible_to_all:
+                        type: boolean
+                      hours_average_daily_use: {}
+                  total:
+                    type: number
+                    description: Cantidad de registros insertados (Siempre será 1)
+                required:
+                  - success
+                  - message
+                  - data
+      description: |-
+        Mediante esta API puedes crear un activo en Fracttal.
+        Debes tener en cuenta que la cantidad de activos que puedes crear están limitados por el plan que tenga contratado tu empresa
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: ''
+              type: object
+              properties:
+                id_type_item:
+                  type: number
+                  description: 'Tipo de activo. Puede ser: 1 para Ubicaciones, 2 para Equipos, 3 para Herramientas, 4 para Repuestos y suministros, 5 para Digital'
+                code:
+                  type: string
+                  minLength: 1
+                  description: Código ítem
+                field_1:
+                  type: string
+                  minLength: 1
+                field_2:
+                  type: string
+                  minLength: 1
+                field_3:
+                  type: string
+                  minLength: 1
+                field_4:
+                  type: string
+                  minLength: 1
+                field_5:
+                  type: string
+                  minLength: 1
+                field_6:
+                  type: string
+                  minLength: 1
+                barcode:
+                  type: string
+                  minLength: 1
+                  description: Código de barras
+                priorities:
+                  type: string
+                  minLength: 1
+                  description: Descripción de la Prioridad
+                purchase_date:
+                  type: string
+                  minLength: 1
+                  description: 'Fecha de compra. Formato: ''YYYY-MM-DDTHH:MM:SS-UTC'' Ejemplo:''2016-07-12T20:00:00-03''.'
+                is_serial_control:
+                  type: string
+                  minLength: 1
+                  description: 'true cuando es un item controlado por serial, false en caso contrario. (False valor por defecto)'
+                is_tool:
+                  type: string
+                  minLength: 1
+                active:
+                  type: string
+                  minLength: 1
+                  description: 'true si el activo está activo, false en caso contrario.'
+                is_changed:
+                  type: string
+                  minLength: 1
+                notes:
+                  type: string
+                  description: Notas
+                weight:
+                  type: string
+                  description: Peso
+                group:
+                  type: string
+                  description: Tipo
+                group_1:
+                  type: string
+                  description: Clasificación 1
+                group_2:
+                  type: string
+                  description: Clasificación 2
+                code_parent_location:
+                  type: string
+                  description: Código del activo donde está ubicado o es parte de
+                latitude:
+                  type: string
+                  description: Latitud
+                longitud:
+                  type: string
+                  description: Longuitud
+                unit_code:
+                  type: string
+                  description: Código de la unidad
+                unit_description:
+                  type: string
+                  description: Descripción de la unidad
+                visible_to_all:
+                  type: string
+                  description: True si el activo se puede visualizar a todas las personas de la empresa
+                total_cost:
+                  type: string
+                  description: Costo total
+                startup_date:
+                  type: string
+                  description: 'Fecha de inicio para la depreciación. Formato: ''YYYY-MM-DDTHH:MM:SS-UTC'' Ejemplo:''2016-07-12T20:00:00-03''.'
+                costs_center:
+                  type: string
+                  description: Descripción Centro de costos
+                budgets:
+                  type: string
+                  description: Costo total de la depreciación lineal
+              required:
+                - id_type_item
+                - code
   ##### ACTIVOS -FIN
   /transactions_log:
     get:
@@ -651,206 +851,7 @@ paths:
                 limit:
                   type: number
                   description: Número de registro final que retornará la consulta. Por defecto se retornan 100 registros (Valor máximo)
-        description: Los siguientes son los parámetros que se deben de enviar en el body del servicio web
-  /items:
-    post:
-      summary: Crear un Activo
-      tags:
-        - API Activos
-      operationId: post-items
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                description: ''
-                type: object
-                properties:
-                  success:
-                    type: boolean
-                    description: true si el insert fue exitoso o false en caso contrario
-                  message:
-                    type: string
-                    minLength: 1
-                    description: 200 si fue exitoso
-                  data:
-                    type: object
-                    description: Json con el item insertado
-                    properties:
-                      code:
-                        type: string
-                        minLength: 1
-                      description: {}
-                      id_type_item:
-                        type: number
-                      notes: {}
-                      min_stock_warning: {}
-                      weight: {}
-                      id_unit: {}
-                      is_serial_control:
-                        type: boolean
-                      is_tool:
-                        type: boolean
-                      active:
-                        type: boolean
-                      barcode:
-                        type: string
-                        minLength: 1
-                      field_1:
-                        type: string
-                        minLength: 1
-                      field_2:
-                        type: string
-                        minLength: 1
-                      lead_time:
-                        type: string
-                      path_image:
-                        type: string
-                      field_3:
-                        type: string
-                        minLength: 1
-                      field_4:
-                        type: string
-                        minLength: 1
-                      is_changed:
-                        type: boolean
-                      field_5:
-                        type: string
-                        minLength: 1
-                      field_6:
-                        type: string
-                        minLength: 1
-                      import_code: {}
-                      total_replacement_cost: {}
-                      salvage_value: {}
-                      purchase_date:
-                        type: string
-                        minLength: 1
-                      total_cost: {}
-                      anual_depreciation: {}
-                      startup_date: {}
-                      latitude: {}
-                      longitud: {}
-                      visible_to_all:
-                        type: boolean
-                      hours_average_daily_use: {}
-                  total:
-                    type: number
-                    description: Cantidad de registros insertados (Siempre será 1)
-                required:
-                  - success
-                  - message
-                  - data
-      description: |-
-        Mediante esta API puedes crear un activo en Fracttal.
-        Debes tener en cuenta que la cantidad de activos que puedes crear están limitados por el plan que tenga contratado tu empresa
-      requestBody:
-        content:
-          application/json:
-            schema:
-              description: ''
-              type: object
-              properties:
-                id_type_item:
-                  type: number
-                  description: 'Tipo de activo. Puede ser: 1 para Ubicaciones, 2 para Equipos, 3 para Herramientas, 4 para Repuestos y suministros, 5 para Digital'
-                code:
-                  type: string
-                  minLength: 1
-                  description: Código ítem
-                field_1:
-                  type: string
-                  minLength: 1
-                field_2:
-                  type: string
-                  minLength: 1
-                field_3:
-                  type: string
-                  minLength: 1
-                field_4:
-                  type: string
-                  minLength: 1
-                field_5:
-                  type: string
-                  minLength: 1
-                field_6:
-                  type: string
-                  minLength: 1
-                barcode:
-                  type: string
-                  minLength: 1
-                  description: Código de barras
-                priorities:
-                  type: string
-                  minLength: 1
-                  description: Descripción de la Prioridad
-                purchase_date:
-                  type: string
-                  minLength: 1
-                  description: 'Fecha de compra. Formato: ''YYYY-MM-DDTHH:MM:SS-UTC'' Ejemplo:''2016-07-12T20:00:00-03''.'
-                is_serial_control:
-                  type: string
-                  minLength: 1
-                  description: 'true cuando es un item controlado por serial, false en caso contrario. (False valor por defecto)'
-                is_tool:
-                  type: string
-                  minLength: 1
-                active:
-                  type: string
-                  minLength: 1
-                  description: 'true si el activo está activo, false en caso contrario.'
-                is_changed:
-                  type: string
-                  minLength: 1
-                notes:
-                  type: string
-                  description: Notas
-                weight:
-                  type: string
-                  description: Peso
-                group:
-                  type: string
-                  description: Tipo
-                group_1:
-                  type: string
-                  description: Clasificación 1
-                group_2:
-                  type: string
-                  description: Clasificación 2
-                code_parent_location:
-                  type: string
-                  description: Código del activo donde está ubicado o es parte de
-                latitude:
-                  type: string
-                  description: Latitud
-                longitud:
-                  type: string
-                  description: Longuitud
-                unit_code:
-                  type: string
-                  description: Código de la unidad
-                unit_description:
-                  type: string
-                  description: Descripción de la unidad
-                visible_to_all:
-                  type: string
-                  description: True si el activo se puede visualizar a todas las personas de la empresa
-                total_cost:
-                  type: string
-                  description: Costo total
-                startup_date:
-                  type: string
-                  description: 'Fecha de inicio para la depreciación. Formato: ''YYYY-MM-DDTHH:MM:SS-UTC'' Ejemplo:''2016-07-12T20:00:00-03''.'
-                costs_center:
-                  type: string
-                  description: Descripción Centro de costos
-                budgets:
-                  type: string
-                  description: Costo total de la depreciación lineal
-              required:
-                - id_type_item
-                - code
+        description: Los siguientes son los parámetros que se deben de enviar en el body del servicio web 
   
 components:
   schemas: {}
