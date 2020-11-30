@@ -444,6 +444,8 @@ paths:
   /items:
     post:
       summary: Crear un Activo
+      tags:
+        - API Activos
       operationId: post-items
       responses:
         '200':
