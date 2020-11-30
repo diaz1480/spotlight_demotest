@@ -531,7 +531,7 @@ paths:
                   - data
       description: |-
         Mediante esta API puedes crear un activo en Fracttal.
-        Debes tener en cuenta que la cantidad de activos que puedes crear están limitados por el plan que tenga contratado tu empresa.
+        Debes tener en cuenta que la cantidad de activos que puedes crear están limitados por el plan que tenga contratado tu empresa
       requestBody:
         content:
           application/json:
