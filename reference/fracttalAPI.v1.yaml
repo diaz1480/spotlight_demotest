@@ -426,6 +426,109 @@ paths:
               required:
                 - id_type_item
                 - code
+  #Asociar un activo a un plan de tareas
+  '/items_associate_tasks_plan/{item_code}':
+    parameters:
+      - schema:
+          type: string
+        name: item_code
+        in: path
+        required: true
+        description: Es el código del activo al cual se le realizará la asignación del plan de tareas
+    put:
+      summary: Asociar activo a un plan de tareas
+      tags:
+        - API Activos
+      operationId: put-items_associate_tasks_plan-item_code
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: Éxito de la operación
+                  message:
+                    type: string
+                    minLength: 1
+                    description: Código de respuesta
+                  data:
+                    type: object
+                    required:
+                      - id
+                      - code
+                      - description
+                      - id_type_item
+                      - id_group_task
+                      - groups_tasks_description
+                    description: Ítem de respuesta
+                    properties:
+                      id:
+                        type: number
+                        description: Id Elemento - NSDI
+                      code:
+                        type: string
+                        minLength: 1
+                        description: Código del activo
+                      description:
+                        type: string
+                        minLength: 1
+                        description: Descripción del activo
+                      id_type_item:
+                        type: number
+                        description: |-
+                          Tipo de activo.
+                          1: Ubicaciones
+                          2: Equipos
+                          3: Herramientas
+                      id_group_task:
+                        type: number
+                        description: Id del plan de tareas al que fue asociado
+                      groups_tasks_description:
+                        type: string
+                        minLength: 1
+                        description: Descripción del plan de tareas al que fue asociado
+                  total:
+                    type: number
+                    description: Número de elementos del detalle de respuesta
+                required:
+                  - success
+                  - message
+                  - data
+                  - total
+      description: |-
+        Mediante este servicio web se puede asociar a un activo un plan de tareas.
+
+        Para poder hacer uso de este servicio web, el activo no puede estar asociado a ningún plan de tareas, debe ser una ubicación, equipo o herramienta y las tareas dentro del plan de tareas, no pueden tener activadores ni subtareas relacionadas con lecturas de medidor.
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: ''
+              type: object
+              properties:
+                id_tasks_plan:
+                  type: string
+                  minLength: 1
+                  description: Id del plan de tareas (lo puedes consultar con el servicio web consulta de plan de tareas )
+                code_user:
+                  type: string
+                  minLength: 1
+                  description: Código del usuario responsable de la transacción (usuario creado como recurso humano en de Fracttal y con una cuenta asociada)
+                last_date_maintenance:
+                  type: string
+                  minLength: 1
+                  description: 'Fecha del último mantenimiento. Por defecto, es la fecha actual. Formato: YYYY-MM-DD'
+              required:
+                - id_tasks_plan
+                - code_user
+                - last_date_maintenance
+        description: 'Los siguientes son los parámetros que se deben de enviar en el body del servicio web, para la asignación del plan de tareas.'
   ##### ACTIVOS -FIN
   /transactions_log:
     get:
@@ -637,108 +740,7 @@ paths:
                   type: string
                   description: Descripción del centro de costos
         description: Los siguientes son los parámetros que se deben de enviar en el body del servicio web
-  '/items_associate_tasks_plan/{item_code}':
-    parameters:
-      - schema:
-          type: string
-        name: item_code
-        in: path
-        required: true
-        description: Es el código del activo al cual se le realizará la asignación del plan de tareas
-    put:
-      summary: Asociar activo a un plan de tareas
-      tags:
-        - API Activos
-      operationId: put-items_associate_tasks_plan-item_code
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                description: ''
-                type: object
-                properties:
-                  success:
-                    type: boolean
-                    description: Éxito de la operación
-                  message:
-                    type: string
-                    minLength: 1
-                    description: Código de respuesta
-                  data:
-                    type: object
-                    required:
-                      - id
-                      - code
-                      - description
-                      - id_type_item
-                      - id_group_task
-                      - groups_tasks_description
-                    description: Ítem de respuesta
-                    properties:
-                      id:
-                        type: number
-                        description: Id Elemento - NSDI
-                      code:
-                        type: string
-                        minLength: 1
-                        description: Código del activo
-                      description:
-                        type: string
-                        minLength: 1
-                        description: Descripción del activo
-                      id_type_item:
-                        type: number
-                        description: |-
-                          Tipo de activo.
-                          1: Ubicaciones
-                          2: Equipos
-                          3: Herramientas
-                      id_group_task:
-                        type: number
-                        description: Id del plan de tareas al que fue asociado
-                      groups_tasks_description:
-                        type: string
-                        minLength: 1
-                        description: Descripción del plan de tareas al que fue asociado
-                  total:
-                    type: number
-                    description: Número de elementos del detalle de respuesta
-                required:
-                  - success
-                  - message
-                  - data
-                  - total
-      description: |-
-        Mediante este servicio web se puede asociar a un activo un plan de tareas.
-
-        Para poder hacer uso de este servicio web, el activo no puede estar asociado a ningún plan de tareas, debe ser una ubicación, equipo o herramienta y las tareas dentro del plan de tareas, no pueden tener activadores ni subtareas relacionadas con lecturas de medidor.
-      parameters: []
-      requestBody:
-        content:
-          application/json:
-            schema:
-              description: ''
-              type: object
-              properties:
-                id_tasks_plan:
-                  type: string
-                  minLength: 1
-                  description: Id del plan de tareas (lo puedes consultar con el servicio web consulta de plan de tareas )
-                code_user:
-                  type: string
-                  minLength: 1
-                  description: Código del usuario responsable de la transacción (usuario creado como recurso humano en de Fracttal y con una cuenta asociada)
-                last_date_maintenance:
-                  type: string
-                  minLength: 1
-                  description: 'Fecha del último mantenimiento. Por defecto, es la fecha actual. Formato: YYYY-MM-DD'
-              required:
-                - id_tasks_plan
-                - code_user
-                - last_date_maintenance
-        description: 'Los siguientes son los parámetros que se deben de enviar en el body del servicio web, para la asignación del plan de tareas.'
+  
   '/items_custom_fields/{code}':
     parameters:
       - schema:
