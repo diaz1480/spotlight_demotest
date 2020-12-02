@@ -16,6 +16,7 @@ servers:
   - url: 'https://app.fracttal.com/api'
     description: API
 paths:
+  
   ##### ACTIVOS - INICIO
   ## Consultar Activo 
   '/items_details/{code}':
@@ -227,6 +228,7 @@ paths:
                 limit:
                   type: string
                   description: Número de registro final que retornará la consulta. Por defecto se retornan 100 registros (Valor máximo)
+    x-explorer-enabled: false
   ##Crear Activo
   /items:
     post:
