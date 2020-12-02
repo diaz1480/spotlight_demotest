@@ -1,6 +1,5 @@
 openapi: 3.0.0
-info:
-  x-explorer-enabled: false
+info:  
   title: FracttalAPI
   x-logo:
     url: 'https://ayuda.fracttal.com/wp-content/uploads/2019/05/fracttal_logo_principal.png'
@@ -27,7 +26,8 @@ paths:
         in: path
         description: Código del activo.
         required: true
-    get:      
+    get:
+      x-explorer-enabled: false      
       summary: Consultar un Activo
       tags:
         - API Activos
