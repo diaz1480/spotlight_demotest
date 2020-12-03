@@ -11,7 +11,20 @@ info:
     name: 'Fracttal '
     url: 'https://ayuda.fracttal.com/'
   termsOfService: 'https://www.fracttal.com/es/terminos-y-condiciones'
-  description: API de integraciones de Fracttal
+  description: |
+        Sample table: 
+      <table>
+      <tr>
+        <td>One</td>
+        <td>Two</td>
+        <td>Three</td>
+      </tr>
+      <tr>
+        <td>a</td>
+        <td>b</td>
+        <td>c</td>
+      </tr>
+    </table>
 servers:
   - url: 'https://app.fracttal.com/api'
     description: API
@@ -29,7 +42,7 @@ paths:
         required: true
     get:
       x-explorer-enabled: false      
-      summary: Consultar un Activo
+      summary: xxx
       tags:
         - API Activos
       responses:
