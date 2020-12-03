@@ -13,18 +13,11 @@ info:
   termsOfService: 'https://www.fracttal.com/es/terminos-y-condiciones'
   description: |
         Sample table: 
-          <table>
-      <tr>
-        <td>One</td>
-        <td>Two</td>
-        <td>Three</td>
-      </tr>
-      <tr>
-        <td>a</td>
-        <td>b</td>
-        <td>c</td>
-      </tr>
-    </table>      
+          |
+        Sample table: 
+          | One | Two | Three |
+          |-----|-----|-------|
+          | a   | b   | c     |       
 servers:
   - url: 'https://app.fracttal.com/api'
     description: API Fracttal
