@@ -27,7 +27,7 @@ info:
     </table>      
 servers:
   - url: 'https://app.fracttal.com/api'
-    description: API
+    description: API Fracttal
 paths:
   
   ##### ACTIVOS - INICIO
