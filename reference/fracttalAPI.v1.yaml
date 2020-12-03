@@ -29,7 +29,7 @@ paths:
         required: true
     get:
       x-explorer-enabled: false      
-      summary: xxx
+      summary: "Sample table:\n\n<table><tr><td>One</td><td>Two</td><td>Three</td></tr><tr><td>a</td><td>b</td><td>c</td></tr><tr><td>a</td><td>b</td><td>c</td></tr></table>"
       tags:
         - API Activos
       responses:
