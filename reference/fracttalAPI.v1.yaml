@@ -1,5 +1,5 @@
 openapi: 3.0.0
-info:  
+info:
   title: FracttalAPI
   x-logo:
     url: 'https://ayuda.fracttal.com/wp-content/uploads/2019/05/fracttal_logo_principal.png'
@@ -11,14 +11,12 @@ info:
     name: 'Fracttal '
     url: 'https://ayuda.fracttal.com/'
   termsOfService: 'https://www.fracttal.com/es/terminos-y-condiciones'
-  description: "Sample table:\n\n<table><tr><td>One</td><td>Two</td><td>Three</td></tr><tr><td>a</td><td>b</td><td>c</td></tr><tr><td>a</td><td>b</td><td>c</td></tr></table>"        
+  description: |
+    Sample table:
 servers:
   - url: 'https://app.fracttal.com/api'
     description: API Fracttal
 paths:
-  
-  ##### ACTIVOS - INICIO
-  ## Consultar Activo 
   '/items_details/{code}':
     parameters:
       - schema:
@@ -28,8 +26,11 @@ paths:
         description: Código del activo.
         required: true
     get:
-      x-explorer-enabled: false      
-      summary: "Sample table:\n\n<table><tr><td>One</td><td>Two</td><td>Three</td></tr><tr><td>a</td><td>b</td><td>c</td></tr><tr><td>a</td><td>b</td><td>c</td></tr></table>"
+      x-explorer-enabled: false
+      summary: |-
+        Sample table:
+
+        <table><tr><td>One</td><td>Two</td><td>Three</td></tr><tr><td>a</td><td>b</td><td>c</td></tr><tr><td>a</td><td>b</td><td>c</td></tr></table>
       tags:
         - API Activos
       responses:
@@ -229,7 +230,6 @@ paths:
                   type: string
                   description: Número de registro final que retornará la consulta. Por defecto se retornan 100 registros (Valor máximo)
     x-explorer-enabled: false
-  ##Crear Activo
   /items:
     post:
       summary: Crear un Activo
@@ -429,7 +429,8 @@ paths:
               required:
                 - id_type_item
                 - code
-  #Asociar un activo a un plan de tareas
+      security:
+        - API Key - 1: []
   '/items_associate_tasks_plan/{item_code}':
     parameters:
       - schema:
@@ -532,7 +533,6 @@ paths:
                 - code_user
                 - last_date_maintenance
         description: 'Los siguientes son los parámetros que se deben de enviar en el body del servicio web, para la asignación del plan de tareas.'
-  ##### ACTIVOS -FIN
   /transactions_log:
     get:
       summary: Consultar log de transacciones
@@ -743,7 +743,6 @@ paths:
                   type: string
                   description: Descripción del centro de costos
         description: Los siguientes son los parámetros que se deben de enviar en el body del servicio web
-  
   '/items_custom_fields/{code}':
     parameters:
       - schema:
@@ -856,12 +855,15 @@ paths:
                 limit:
                   type: number
                   description: Número de registro final que retornará la consulta. Por defecto se retornan 100 registros (Valor máximo)
-        description: Los siguientes son los parámetros que se deben de enviar en el body del servicio web 
-  
+        description: Los siguientes son los parámetros que se deben de enviar en el body del servicio web
 components:
   schemas: {}
-  securitySchemes: {}
-tags:  
+  securitySchemes:
+    API Key - 1:
+      type: http
+      scheme: basic
+      description: ''
+tags:
   - name: API Activos
     description: Sección de activos
     externalDocs:
