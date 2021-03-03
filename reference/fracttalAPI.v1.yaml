@@ -899,7 +899,9 @@ paths:
                         id_company:
                           type: number
                         id_type:
-                          type: number
+                          type:
+                            - number
+                            - 'null'
                         id_item:
                           type: number
                         is_urgent:
