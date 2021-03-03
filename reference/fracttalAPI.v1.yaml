@@ -259,13 +259,18 @@ paths:
                       code:
                         type: string
                         minLength: 1
-                      description: {}
+                      description:
+                        type: string
                       id_type_item:
                         type: number
-                      notes: {}
-                      min_stock_warning: {}
-                      weight: {}
-                      id_unit: {}
+                      notes:
+                        type: string
+                      min_stock_warning:
+                        type: string
+                      weight:
+                        type: string
+                      id_unit:
+                        type: string
                       is_serial_control:
                         type: boolean
                       is_tool:
@@ -299,20 +304,28 @@ paths:
                       field_6:
                         type: string
                         minLength: 1
-                      import_code: {}
-                      total_replacement_cost: {}
-                      salvage_value: {}
+                      import_code:
+                        type: string
+                      total_replacement_cost:
+                        type: string
+                      salvage_value:
+                        type: string
                       purchase_date:
                         type: string
                         minLength: 1
                       total_cost: {}
-                      anual_depreciation: {}
-                      startup_date: {}
-                      latitude: {}
-                      longitud: {}
+                      anual_depreciation:
+                        type: string
+                      startup_date:
+                        type: string
+                      latitude:
+                        type: string
+                      longitud:
+                        type: string
                       visible_to_all:
                         type: boolean
-                      hours_average_daily_use: {}
+                      hours_average_daily_use:
+                        type: string
                   total:
                     type: number
                     description: Cantidad de registros insertados (Siempre será 1)
