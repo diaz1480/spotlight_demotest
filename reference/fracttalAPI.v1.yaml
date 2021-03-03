@@ -898,10 +898,6 @@ paths:
                           type: number
                         id_company:
                           type: number
-                        id_type:
-                          type:
-                            - number
-                            - 'null'
                         id_item:
                           type: number
                         is_urgent:
@@ -938,25 +934,8 @@ paths:
                           type: string
                         items_description:
                           type: string
-                      required:
-                        - id
-                        - id_company
-                        - id_type
-                        - id_item
-                        - is_urgent
-                        - description
-                        - date
-                        - observation
-                        - date_incident
-                        - identifier
-                        - requested_by
                   total:
                     type: number
-                required:
-                  - success
-                  - message
-                  - data
-                  - total
       description: Mediante este EndPoint se puede crear una nueva solicitud de trabajo.
       security:
         - API Key - 1: []
