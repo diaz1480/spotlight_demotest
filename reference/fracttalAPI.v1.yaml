@@ -892,18 +892,7 @@ paths:
                     uniqueItems: true
                     minItems: 1
                     items:
-                      required:
-                        - id
-                        - id_company
-                        - id_type
-                        - id_item
-                        - is_urgent
-                        - description
-                        - date
-                        - observation
-                        - date_incident
-                        - identifier
-                        - requested_by
+                      type: object
                       properties:
                         id:
                           type: number
@@ -918,28 +907,47 @@ paths:
                         description:
                           type: string
                           minLength: 1
-                        id_account: {}
+                        id_account:
+                          type: string
                         date:
                           type: string
                           minLength: 1
-                        rating: {}
-                        rating_notes: {}
+                        rating:
+                          type: string
+                        rating_notes:
+                          type: string
                         observation:
                           type: string
                           minLength: 1
                         date_incident:
                           type: string
                           minLength: 1
-                        date_solution: {}
+                        date_solution:
+                          type: string
                         identifier:
                           type: string
                           minLength: 1
                         requested_by:
                           type: string
                           minLength: 1
-                        geolocation: {}
-                        date_maintenance: {}
-                        items_description: {}
+                        geolocation:
+                          type: string
+                        date_maintenance:
+                          type: string
+                        items_description:
+                          type: string
+                      required:
+                        - id
+                        - id_company
+                        - id_type
+                        - id_item
+                        - is_urgent
+                        - description
+                        - date
+                        - observation
+                        - date_incident
+                        - identifier
+                        - requested_by
                   total:
                     type: number
                 required:
