@@ -235,7 +235,7 @@ paths:
       summary: Crear un Activo
       tags:
         - API Activos
-      operationId: post-items
+      operationId: crear-activo
       responses:
         '200':
           description: OK
@@ -856,6 +856,159 @@ paths:
                   type: number
                   description: Número de registro final que retornará la consulta. Por defecto se retornan 100 registros (Valor máximo)
         description: Los siguientes son los parámetros que se deben de enviar en el body del servicio web
+  /work_requests:
+    post:
+      summary: Crear una Nueva Solicitud
+      operationId: Crear-Nueva-Solicitud
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                    minLength: 1
+                  data:
+                    type: array
+                    uniqueItems: true
+                    minItems: 1
+                    items:
+                      required:
+                        - id
+                        - id_company
+                        - id_type
+                        - id_item
+                        - is_urgent
+                        - description
+                        - date
+                        - observation
+                        - date_incident
+                        - identifier
+                        - requested_by
+                      properties:
+                        id:
+                          type: number
+                        id_company:
+                          type: number
+                        id_type:
+                          type: number
+                        id_item:
+                          type: number
+                        is_urgent:
+                          type: boolean
+                        description:
+                          type: string
+                          minLength: 1
+                        id_account: {}
+                        date:
+                          type: string
+                          minLength: 1
+                        rating: {}
+                        rating_notes: {}
+                        observation:
+                          type: string
+                          minLength: 1
+                        date_incident:
+                          type: string
+                          minLength: 1
+                        date_solution: {}
+                        identifier:
+                          type: string
+                          minLength: 1
+                        requested_by:
+                          type: string
+                          minLength: 1
+                        geolocation: {}
+                        date_maintenance: {}
+                        items_description: {}
+                  total:
+                    type: number
+                required:
+                  - success
+                  - message
+                  - data
+                  - total
+      description: Mediante este EndPoint se puede crear una nueva solicitud de trabajo.
+      security:
+        - API Key - 1: []
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Content-Type
+          description: application/json
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: ''
+              type: object
+              properties:
+                code:
+                  type: string
+                  minLength: 1
+                  description: Código del activo.
+                user_code:
+                  type: string
+                  minLength: 1
+                  description: Código del usuario que resgistrará la solicitud.
+                description:
+                  type: string
+                  minLength: 1
+                  description: Título de la solicitud
+                observation:
+                  type: string
+                  minLength: 1
+                  description: Descripción detallada de la solicitud
+                date_incident:
+                  type: string
+                  minLength: 1
+                  description: 'Fecha y hora en la que ocurrió el incidente.Formato: ''YYYY-MM-DDTHH:MM:SS-UTC'' Ejemplo:''2016-07-12T20:00:00-03''.'
+                requested_by:
+                  type: string
+                  minLength: 1
+                  description: Nombre de la persona que solicita la reparación
+                identifier:
+                  type: string
+                  minLength: 1
+                  description: Referencia
+                is_urgent:
+                  type: string
+                  minLength: 1
+                  description: Solicitud Urgente? 'true' si es urgente y 'false' en caso contrario.
+                types_description:
+                  type: string
+                  minLength: 1
+                  description: Descripción del grupo.
+                types_1_description:
+                  type: string
+                  minLength: 1
+                  description: Descripción del grupo.
+                types_2_description:
+                  type: string
+                  minLength: 1
+                  description: Descripción de la clasificación 1.
+                key_words_descriptions:
+                  type: array
+                  description: Descripción de la clasificación 2.
+                  items:
+                    type: object
+                    description: Descripciones de las palabras claves que tiene la solicitud.
+                    properties:
+                      '':
+                        type: string
+              required:
+                - user_code
+                - description
+                - date_incident
+                - requested_by
+                - is_urgent
 components:
   schemas: {}
   securitySchemes:
