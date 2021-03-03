@@ -950,12 +950,7 @@ paths:
       description: Mediante este EndPoint se puede crear una nueva solicitud de trabajo.
       security:
         - API Key - 1: []
-      parameters:
-        - schema:
-            type: string
-          in: header
-          name: Content-Type
-          description: application/json
+      parameters: []
       requestBody:
         content:
           application/json:
@@ -1011,17 +1006,17 @@ paths:
                   type: array
                   description: Descripción de la clasificación 2.
                   items:
-                    type: object
-                    description: Descripciones de las palabras claves que tiene la solicitud.
-                    properties:
-                      '':
-                        type: string
+                    type: string
               required:
                 - user_code
                 - description
                 - date_incident
                 - requested_by
                 - is_urgent
+          application/xml:
+            schema:
+              type: object
+              properties: {}
 components:
   schemas: {}
   securitySchemes:
